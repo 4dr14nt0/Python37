@@ -1,0 +1,275 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.js" integrity="sha512-1lagjLfnC1I0iqH9plHYIUq3vDMfjhZsLy9elfK89RBcpcRcx4l+kRJBSnHh2Mh6kLxRHoObD1M5UTUbgFy6nA==" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>
+                        Daftar Anggota
+                    </h1>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Anggota</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>No</td>
+                            <td>NIK</td>
+                            <td>Nama</td>
+                            <td>Usia</td>
+                            <td>Tgl Lahir</td>
+                            <td>Telp</td>
+                            <td>Alamat</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in data %}
+                        <tr>
+                            <td>{{x.0}}</td>
+                            <td>{{x.1}}</td>
+                            <td>{{x.2}}</td>
+                            <td>{{x.3}}</td>
+                            <td>{{x.4}}</td>
+                            <td>{{x.6}}</td>
+                            <td>{{x.5}}</td>
+                            <td>
+                                <button class="btn btn-secondary" data-toggle="modal" data-target="#editModal" onclick="editanggota('{{x.0}}','{{x.1}}','{{x.2}}','{{x.3}}','{{x.4}}','{{x.5}}','{{x.6}}',)">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteanggota('{{x.0}}')">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Anggota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="formadd" id="formadd">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label">NIK:</label>
+                            <input type="number" class="form-control" id="nik" name="nik">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Nama:</label>
+                            <input type="text" class="form-control" id="nama" name="nama">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Tgl Lahir:</label>
+                            <input type="date" class="form-control" id="tgllahir" name="tgllahir">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Telp:</label>
+                            <input type="number" class="form-control" id="telp" name="telp">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Usia:</label>
+                            <input type="number" class="form-control" id="usia" name="usia">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Address:</label>
+                            <textarea class="form-control rounded-0" id="alamat" name="alamat" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Add Anggota</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Anggota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="formedit" id="formedit">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label">ID:</label>
+                            <input type="number" class="form-control" id="edit_id" name="edit_id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">NIK:</label>
+                            <input type="number" class="form-control" id="edit_nik" name="edit_nik">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Nama:</label>
+                            <input type="text" class="form-control" id="edit_nama" name="edit_nama">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Tgl Lahir:</label>
+                            <input type="date" class="form-control" id="edit_tgllahir" name="edit_tgllahir">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Telp:</label>
+                            <input type="number" class="form-control" id="edit_telp" name="edit_telp">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Usia:</label>
+                            <input type="number" class="form-control" id="edit_usia" name="edit_usia">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Address:</label>
+                            <textarea class="form-control rounded-0" id="edit_alamat" name="edit_alamat" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Edit Anggota</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    $(document).ready(function() {
+        $("#formadd").on("submit", function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: 'http://localhost:5000/addanggota ',
+                type: "post",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                cache: false,
+                async: false,
+                success: function(res) {
+                    console.log(res);
+                    if (res == 'Success') {
+                        alert('Add Anggota Success');
+                        location.reload();
+                    } else {
+                        alert('Failed to Add Anggota ');
+                    }
+
+                },
+                error: function(err) {
+                    console.log(err);
+                    alert('Request Error ');
+                }
+            });
+            return false;
+        });
+
+        $("#formedit").on("submit", function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: 'http://localhost:5000/editanggota ',
+                type: "post",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                cache: false,
+                async: false,
+                success: function(res) {
+                    console.log(res);
+                    if (res == 'Success') {
+                        alert('Edit Anggota Success');
+                        location.reload();
+                    } else {
+                        alert('Failed to Edit Anggota ');
+                    }
+
+                },
+                error: function(err) {
+                    console.log(err);
+                    alert('Request Error ');
+                }
+            });
+            return false;
+        });
+
+    });
+
+    function deleteanggota(id) {
+        $.ajax({
+            url: 'http://localhost:5000/deleteanggota?id=' + id,
+            type: "GET",
+            success: function(res) {
+                console.log(res);
+                if (res == 'Success') {
+                    alert('Success');
+                    location.reload();
+                } else {
+                    alert('Failed to Delete Anggota');
+                }
+
+            },
+            error: function(err) {
+                console.log(err);
+                alert('Request Error ');
+            }
+        });
+    }
+
+    function editanggota(id, nik, nama, usia, tgllahir, alamat, telp) {
+        // console.log(id + nik + nama + usia + tgllahir + alamat + telp);
+        // $('#editModal').modal('show');
+
+        $('#edit_id').val(id);
+        $('#edit_nik').val(nik);
+        $('#edit_nama').val(nama);
+        $('#edit_usia').val(usia);
+        $('#edit_tgllahir').val(tgllahir);
+        $('#edit_alamat').val(alamat);
+        $('#edit_telp').val(telp);
+        // $.ajax({
+        //     url: 'http://localhost:5000/deleteanggota?id=' + id,
+        //     type: "GET",
+        //     success: function(res) {
+        //         console.log(res);
+        //         if (res == 'Success') {
+        //             alert('Success');
+        //             location.reload();
+        //         } else {
+        //             alert('Failed to Delete Anggota');
+        //         }
+
+        //     },
+        //     error: function(err) {
+        //         console.log(err);
+        //         alert('Request Error ');
+        //     }
+        // });
+    }
+</script>
+
+</html>

@@ -1,0 +1,30 @@
+<html>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<td>No</td>
+					<td>NIK</td>
+					<td>Nama</td>
+					<td>Tgl Lahir</td>
+					<td>Usia</td>
+					<td>Telp</td>
+					<td>Alamat</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in datatampil %}
+					<tr>
+						<td>{{x.0}}</td>
+						<td>{{x.1}}</td>
+						<td>{{x.2}}</td>
+						<td>{{x.3}}</td>
+						<td>{{x.4}}</td>
+						<td>{{x.6}}</td>
+						<td>{{x.5}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>
