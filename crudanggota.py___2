@@ -1,0 +1,23 @@
+from flask import Flask,render_template,url_for,redirect
+from flask_mysqldb import MySQL
+
+# Buat Koneksi ke Mysql
+app = Flask(__name__)
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_PORT'] = 3307
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'S4br1n4'
+app.config['MYSQL_DB'] = 'trainingdb'
+mysql = MySQL(app)
+
+@app.route('/')
+def list():
+    cur = mysql.connection.cursor()
+    query = "SELECT * FROM anggota"
+    cur.execute(query)
+    data = cur.fetchall()
+    cur.close()
+    print(data)
+
+if __name__ == '__main__':
+    app.run()
